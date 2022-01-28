@@ -34,11 +34,11 @@ function App() {
       <header className="App-header">
         {stream ? (
           <JitsiMeeting
-            domain="meet.portl.live"
+            domain="conference.portl.live"
             roomName={stream.roomName}
             configOverwrite={{
               startWithAudioMuted: true,
-              disableModeratorIndicator: true,
+              disableModeratorIndicator: false,
               startScreenSharing: false,
               enableEmailInStats: false,
             }}
@@ -46,13 +46,13 @@ function App() {
               DISABLE_JOIN_LEAVE_NOTIFICATIONS: true,
               DEFAULT_BACKGROUND: '#464646',
               DEFAULT_REMOTE_DISPLAY_NAME: '',
-              SHOW_JITSI_WATERMARK: 1 === 1,
-              SHOW_WATERMARK_FOR_GUESTS: 1 === 1,
-              SHOW_BRAND_WATERMARK: 0 === 1,
+              SHOW_JITSI_WATERMARK: true,
+              SHOW_WATERMARK_FOR_GUESTS: true,
+              SHOW_BRAND_WATERMARK: false,
               BRAND_WATERMARK_LINK: '',
               LANG_DETECTION: true,
               CONNECTION_INDICATOR_DISABLED: false,
-              VIDEO_QUALITY_LABEL_DISABLED: 0 === 1,
+              VIDEO_QUALITY_LABEL_DISABLED: false,
               SETTINGS_SECTIONS: settings.split(','),
               TOOLBAR_BUTTONS: toolbar.split(','),
             }}
@@ -64,10 +64,8 @@ function App() {
                 'avatarUrl',
                 'https://avatars0.githubusercontent.com/u/3671647'
               )
-              api.addEventListeners({
-                participantLeft: (payload) => resetStreamAndForm(),
-                readyToClose: (payload) => resetStreamAndForm(),
-              })
+              api.addListener('readyToClose', (payload) => resetStreamAndForm())
+              api.addListener('participantLeft', (payload) => resetStreamAndForm())
             }}
             getIFrameRef={(iframe) => {
               iframe.style.height = '100vh'
