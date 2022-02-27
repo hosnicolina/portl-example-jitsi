@@ -34,7 +34,7 @@ function App() {
       <header className="App-header">
         {stream ? (
           <JitsiMeeting
-            domain="conference.portl.live"
+            domain="meet.portl.live"
             roomName={stream.roomName}
             configOverwrite={{
               startWithAudioMuted: true,
