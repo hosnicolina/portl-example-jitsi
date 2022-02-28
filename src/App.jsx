@@ -60,10 +60,10 @@ function App() {
               displayName: form.userName,
             }}
             onApiReady={(api) => {
-              api.executeCommand(
-                'avatarUrl',
-                'https://avatars0.githubusercontent.com/u/3671647'
-              )
+              // api.executeCommand(
+              //   'avatarUrl',
+              //   'https://avatars0.githubusercontent.com/u/3671647'
+              // )
               api.addListener('readyToClose', (payload) => resetStreamAndForm())
               api.addListener('participantLeft', (payload) => resetStreamAndForm())
             }}
